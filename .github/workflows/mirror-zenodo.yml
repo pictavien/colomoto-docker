@@ -1,0 +1,32 @@
+name: Mirror docker images
+
+on:
+#  repository_dispatch:
+#    types:
+#      - 'mirror-zenodo/*-*-*'
+#      - 'mirrors/*-*-*'
+  push:
+    branches:
+      - zenodo-mirror
+#    tags:
+#      - '*-*-*'
+
+jobs:
+  mirror-zenodo:
+    name: Release on Zenodo
+    runs-on: ubuntu-latest
+    steps:
+      - run:
+          echo TAG=${GITHUB_REF##*/} >> $GITHUB_ENV
+        if: github.event_name == 'push'
+      - run:
+          echo TAG=${REF##*/} >> $GITHUB_ENV
+        if: github.event_name == 'repository_dispatch'
+        env:
+            REF: ${{ github.event.action }}
+      - run:
+          echo IMAGE=${{vars.COLOMOTO_DOCKER_IMAGE}}:${TAG} >> $GITHUB_ENV
+      - name: Setup Donodo
+        uses: actions/setup-python@v5
+        run: pip install donodo
+      - run: donodo $${vars.DONODO_FLAGS}} push $IMAGE
