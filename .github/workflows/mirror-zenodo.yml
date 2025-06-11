@@ -1,4 +1,4 @@
-name: Mirror docker images
+name: Mirror docker images on Zenodo
 
 on:
 #  repository_dispatch:
@@ -15,6 +15,8 @@ jobs:
   mirror-zenodo:
     name: Release on Zenodo
     runs-on: ubuntu-latest
+    env:
+      ZENODO_TOKEN: ${{secrets.ZENODO_TOKEN}}
     steps:
       - run:
           echo TAG=${GITHUB_REF##*/} >> $GITHUB_ENV
@@ -28,5 +30,7 @@ jobs:
           echo IMAGE=${{vars.COLOMOTO_DOCKER_IMAGE}}:${TAG} >> $GITHUB_ENV
       - name: Setup Donodo
         uses: actions/setup-python@v5
-        run: pip install donodo
-      - run: donodo $${vars.DONODO_FLAGS}} push $IMAGE
+        with:
+            python-version: '3.12'
+      - run: pip install donodo
+      - run: donodo ${{vars.DONODO_FLAGS}} push $IMAGE
