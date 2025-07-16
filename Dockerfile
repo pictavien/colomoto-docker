@@ -1,7 +1,7 @@
 FROM debian:sid-20250224-slim
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /home/user/.local/bin:/opt/conda/bin:$PATH
+ENV PATH=/home/user/.local/bin:/opt/conda/bin:$PATH
 
 ARG NB_USER=user
 ARG NB_UID=1000
@@ -40,11 +40,12 @@ RUN TINI_VERSION="0.19.0" && \
 #
 # package versions in this section are not pinned unless necessary
 #
-RUN CONDA_VERSION="py312_25.1.1-2" && \
+RUN CONDA_VERSION="py312_25.5.1-0" && \
     echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
+    conda tos accept && \
     conda config --set auto_update_conda False && \
     conda config --append channels colomoto && \
     conda config --add channels conda-forge && \

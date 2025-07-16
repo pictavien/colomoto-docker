@@ -1,15 +1,16 @@
 name: Mirror docker images on Zenodo
 
 on:
-#  repository_dispatch:
-#    types:
-#      - 'mirror-zenodo/*-*-*'
-#      - 'mirrors/*-*-*'
+  repository_dispatch:
+    types:
+      - 'mirror-zenodo/*-*-*'
+      - 'mirrors/*-*-*'
   push:
+    tags:
+      - '*-*-*'
     branches:
       - zenodo-mirror
-#    tags:
-#      - '*-*-*'
+
 
 jobs:
   mirror-zenodo:
@@ -33,4 +34,5 @@ jobs:
         with:
             python-version: '3.12'
       - run: pip install donodo
-      - run: donodo ${{vars.DONODO_FLAGS}} push $IMAGE
+      - run: docker pull ${IMAGE}
+      - run: echo donodo ${{vars.DONODO_FLAGS}} push $IMAGE
