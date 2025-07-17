@@ -35,4 +35,4 @@ jobs:
             python-version: '3.12'
       - run: pip install donodo
       - run: docker pull ${IMAGE}
-      - run: echo donodo ${{vars.DONODO_FLAGS}} push $IMAGE
+      - run: donodo ${{vars.DONODO_FLAGS}} push $IMAGE
