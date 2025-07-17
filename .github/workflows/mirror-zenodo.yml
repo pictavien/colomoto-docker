@@ -16,9 +16,13 @@ jobs:
   mirror-zenodo:
     name: Release on Zenodo
     runs-on: ubuntu-latest
-    env:
-      ZENODO_TOKEN: ${{secrets.ZENODO_TOKEN}}
     steps:
+      - run:
+          echo ZENODO_TOKEN=${{secrets.ZENODO_TOKEN}} >> $GITHUB_ENV
+        if: ! contains('--sandbox', '${{vars.DONODO_FLAGS}}')
+      - run:
+          echo ZENODO_TOKEN=${{secrets.ZENODO_SANDBOX_TOKEN}} >> $GITHUB_ENV
+        if: contains('--sandbox', '${{vars.DONODO_FLAGS}}')
       - run:
           echo TAG=${GITHUB_REF##*/} >> $GITHUB_ENV
         if: github.event_name == 'push'
