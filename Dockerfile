@@ -118,12 +118,12 @@ RUN AUTO_UPDATE=1 conda install --no-update-deps  -y  \
         -c potassco -c bioasp \
         asprin=3.1.1=py_0 \
         boolsim=1.2=0 \
-        boolean.py=4.0+git_1=py_0 \
+        boolean.py=5.0=pyhd8ed1ab_0 \
         booleannet=1.2.8=py_0 \
         bns=1.3=h2bc3f7f_0 \
         cabean=1.0.0=0 \
         caspo=4.0.1=py_1 \
-        clingo=5.7.1=py312h3fd9d12_0 \
+        clingo=5.8.0=py312h3fd9d12_0 \
         erode-python=0.7.2=py_0 \
         ginsim=3.0.0b=13 \
         its=20210125=0 \
@@ -137,7 +137,7 @@ RUN AUTO_UPDATE=1 conda install --no-update-deps  -y  \
 RUN AUTO_UPDATE=1 conda install --no-update-deps -y \
         -c daemontus \
         biodivine_aeon=1.2.3=py312h9bf148f_0 \
-        maboss=2.6.1=he9e06a5_1 \
+        maboss=2.6.2=h656b026_1 \
         pyboolnet=3.0.16=py312_0 \
     && conda clean -y --all && rm -rf /opt/conda/pkgs
 
@@ -146,7 +146,7 @@ RUN AUTO_UPDATE=1 conda install --no-update-deps -y \
         -c creda \
         algorecell_types=1.0=py_0 \
         bns-python=0.2=py_0 \
-        bonesis=0.6.7=py_0 \
+        bonesis=0.6.8.1=py_0 \
         boon=1.28=py_0 \
         boolsim-python=0.5=py_0 \
         cabean-python=1.0=py_0 \
