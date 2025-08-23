@@ -1,4 +1,4 @@
-FROM debian:sid-20250224-slim
+FROM debian:sid-20250811-slim
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH=/home/user/.local/bin:/opt/conda/bin:$PATH
@@ -41,7 +41,8 @@ RUN TINI_VERSION="0.19.0" && \
 #
 # package versions in this section are not pinned unless necessary
 #
-RUN CONDA_VERSION="py312_25.5.1-0" && \
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=yes
+RUN CONDA_VERSION="py312_25.5.1-1" && \
     echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
@@ -69,6 +70,7 @@ RUN conda install -y \
         pyqt=5.9.9999 \
         graphviz \
         imagemagick \
+        'ipylab>=1.1.0' \
         ipywidgets \
         matplotlib \
         networkx \
@@ -153,16 +155,16 @@ RUN AUTO_UPDATE=1 conda install --no-update-deps -y \
         cabean-python=1.0=py_0 \
         caspo-control=1.0=py_0 \
         casq=1.3.3=pyhd8ed1ab_1 \
-        colomoto_jupyter=0.8.21=py_0 \
-        ginsim-python=0.4.5=py_0 \
+        colomoto_jupyter=0.9.0=py_0 \
+        ginsim-python=0.4.6=py_0 \
         mpbn=4.1=py_0 \
         nordic=2.6.0=py_0 \
         pyactonet=1.0=py_0 \
-        szlaura::pydruglogics=0.1.8=py_0 \
+        szlaura::pydruglogics=0.1.9=py_0 \
         pymaboss=0.8.10=py_0 \
-        pypint=1.6.3=py_0 \
+        pypint=1.6.4=py_0 \
         pystablemotifs=3.0.6=py_0 \
-        scboolseq=2.2.0=py_0 \
+        scboolseq=2.3.2=py_0 \
     && conda clean -y --all && rm -rf /opt/conda/pkgs
 
 ## Additional tweaks
